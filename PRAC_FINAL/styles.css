@@ -1,0 +1,18 @@
+:root { --sidebar-w: 260px; --bg: #f4f6f9; }
+body { margin:0; font-family:'Segoe UI',system-ui,sans-serif; background:var(--bg); overflow-x:hidden; }
+.sidebar { position:fixed; top:0; left:0; width:var(--sidebar-w); height:100vh; background:#1a1d20; color:#fff; padding:1.2rem; transition:transform .3s; z-index:1000; overflow-y:auto; }
+.sidebar-header { padding-bottom:1rem; border-bottom:1px solid #343a40; }
+.nav-link { color:rgba(255,255,255,.7); margin:.25rem 0; border-radius:6px; padding:.5rem .8rem; transition:all .2s; }
+.nav-link:hover, .nav-link.active { background:rgba(255,255,255,.15); color:#fff; transform:translateX(4px); }
+.main-content { margin-left:var(--sidebar-w); padding:1.5rem; min-height:100vh; }
+.view { display:none; animation:fade .3s ease; }
+.view.active { display:block; }
+@keyframes fade { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+#menu-toggle { position:fixed; top:1rem; left:1rem; z-index:1100; }
+@media(max-width:992px){ .sidebar{transform:translateX(-100%)} .sidebar.show{transform:translateX(0)} .main-content{margin-left:0;padding-top:4rem} }
+canvas { max-height:320px; width:100%; background:#fff; border-radius:8px; padding:10px; margin-bottom:10px; }
+table { font-size:.85rem; }
+.alert, .card { border-left-width:4px; }
+.traffic-widget { position:sticky; top:0; z-index:1050; padding:8px 15px; display:flex; align-items:center; justify-content:center; border-bottom:1px solid #dee2e6; }
+.progress { height: 1.2rem; font-size: 0.75rem; }
+.btn-rumor.active, .btn-panic.active, .btn-social.active { background-color: var(--bs-dark); color: white; border-color: var(--bs-dark); }

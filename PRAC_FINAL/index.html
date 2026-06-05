@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Resiliencia Urbana: La Paz en Tiempos de Crisis</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h4 class="mb-1">Métodos Numéricos</h4>
+            <small class="text-muted">Simulador Académico de Crisis Urbana</small>
+        </div>
+        <ul class="nav flex-column mt-3">
+            <li class="nav-item"><a href="#" class="nav-link active" data-target="inicio">🏠 Inicio</a></li>
+            <li class="nav-item"><a href="#" class="nav-link" data-target="escenario-a">📦 A. Abastecimiento</a></li>
+            <li class="nav-item"><a href="#" class="nav-link" data-target="escenario-b">⛽ B. Reservas Senkata</a></li>
+            <li class="nav-item"><a href="#" class="nav-link" data-target="escenario-c">📈 C. Curva de Precios</a></li>
+            <li class="nav-item"><a href="#" class="nav-link" data-target="escenario-d">💰 D. Costo Familiar</a></li>
+            <li class="nav-item"><a href="#" class="nav-link" data-target="escenario-e">⚖️ E. Umbrales Críticos</a></li>
+            <li class="nav-item"><a href="#" class="nav-link" data-target="escenario-f">🌪️ F. Rumores y Pánico</a></li>
+            <li class="nav-item"><a href="#" class="nav-link" data-target="escenario-g">👥 G. Dinámica Social</a></li>
+            <li class="nav-item"><a href="#" class="nav-link" data-target="conclusiones">📝 Conclusiones</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <button class="btn btn-dark d-md-none mb-3" id="menu-toggle">☰ Menú</button>
+        <div id="traffic-light" class="traffic-widget bg-light shadow-sm mb-4">
+            <span class="badge rounded-pill bg-secondary">🚦 Estado: Analizando...</span>
+            <small class="ms-2">Semáforo de Resiliencia Paceña</small>
+        </div>
+
+        <!-- INICIO -->
+        <section id="inicio" class="view active">
+            <div class="container py-5 text-center">
+                <h1 class="display-5 fw-bold text-primary mb-3">Bienvenidos al Simulador de Resiliencia Urbana: La Paz en Tiempos de Crisis</h1>
+                <div class="row mt-4 justify-content-center">
+                    <div class="col-md-6 mb-3">
+                        <div class="card border-0 shadow-sm p-4 h-100 text-start">
+                            <h4 class="text-success">¿Qué es esta plataforma?</h4>
+                            <p>Este sitio web es una herramienta interactiva diseñada para analizar, predecir y comprender cómo las crisis de desabastecimiento, los bloqueos de carreteras y la desinformación afectan la vida cotidiana en la ciudad de La Paz y El Alto.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="card border-0 shadow-sm p-4 h-100 text-start">
+                            <h4 class="text-info">¿Por qué usamos Matemáticas y Métodos Numéricos?</h4>
+                            <p>Detrás de las filas en los surtidores, la subida del precio del pollo o la tensión en las calles, existen patrones. Las crisis urbanas no son caóticas por azar; se comportan como sistemas complejos. Mediante el uso de herramientas de la ingeniería y la matemática aplicada (como sistemas de ecuaciones lineales, interpolación, integración numérica y ecuaciones diferenciales), este simulador traduce los datos dispersos del día a día en proyecciones claras.</p>
+                            <p>Aquí podrás interactuar con los factores reales de nuestra coyuntura: activar bloqueos, simular rumores en redes sociales, ajustar el tamaño de tu familia y ver en tiempo real cómo reacciona la estructura de nuestra ciudad. El objetivo es uno solo: usar la ciencia para entender la vulnerabilidad de nuestro hogar y buscar soluciones eficientes.</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-lg mt-4" onclick="navigateTo('escenario-a')">🚀 Comenzar Simulación</button>
+            </div>
+        </section>
+
+        <!-- A: ABASTECIMIENTO -->
+        <section id="escenario-a" class="view">
+            <div class="container py-4">
+                <h2 class="mb-2 border-bottom pb-2">A. Optimización del Abastecimiento y Red de Transporte</h2>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card shadow-sm mb-3"><div class="card-header bg-primary text-white">⚙️ Configuración</div>
+                            <div class="card-body">
+                                <select class="form-select mb-2" id="presetA"><option value="normal">🟢 Operación Normal</option><option value="bloqueo">🟡 Bloqueo Ruta Principal</option><option value="panico">🔴 Pánico de Compra</option></select>
+                                <select class="form-select mb-2" id="methodA"><option value="gs">Gauss-Seidel</option><option value="sor">SOR (ω=1.4)</option><option value="lu">LU Directo</option></select>
+                                <div class="d-grid gap-2 mb-2">
+                                    <button class="btn btn-outline-primary btn-sm" id="btnPuente">✈️ Activar Puente Aéreo</button>
+                                    <button class="btn btn-outline-secondary btn-sm" id="btnPlaca">🚗 Restricción por Placa</button>
+                                </div>
+                                <div class="form-text mb-3">
+                                    ✈️ <strong>Puente Aéreo:</strong> Inyecta cisternas extra saltándose carreteras bloqueadas.<br>
+                                    🚗 <strong>Restricción por Placa:</strong> Reduce la demanda urbana a la mitad para estabilizar la red.
+                                </div>
+                                <button class="btn btn-success w-100" id="btnCalcA">Calcular Distribución</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div id="resultA" class="card shadow-sm mb-3"><div class="card-body"><p class="text-muted">Configura y ejecuta el cálculo.</p></div></div>
+                        <canvas id="chartA" class="mb-3"></canvas>
+                        
+                        <div class="card border-warning mb-3"><div class="card-header bg-warning text-dark fw-bold">🔍 Preguntas Dinámicas del Simulador</div><div class="card-body small" id="dynQA"></div></div>
+                        <div class="card border-primary mb-3"><div class="card-header bg-primary text-white fw-bold">❓ Preguntas Fijas del Escenario</div><div class="card-body small" id="staticQA"></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- B: RESERVAS -->
+        <section id="escenario-b" class="view">
+            <div class="container py-4">
+                <h2 class="mb-2 border-bottom pb-2">B. Vaciado Crítico de Reservas en Plantas de Carburantes</h2>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card shadow-sm mb-3"><div class="card-header bg-danger text-white">⚙️ Parámetros</div>
+                            <div class="card-body">
+                                <label class="form-label small">Estado de Carreteras</label>
+                                <select class="form-select mb-2" id="highwayStatus"><option value="open">Vías Abiertas (100%)</option><option value="oruro">Oruro Bloqueada (-30%)</option><option value="cocha">Cochabamba Bloqueada (-50%)</option><option value="cerco">Cerco Total (-100%)</option></select>
+                                <input type="number" id="b_r0" class="form-control mb-2" placeholder="Reserva Inicial (mil L)" value="1500">
+                                <input type="number" id="b_out" class="form-control mb-2" placeholder="Consumo Diario (mil L)" value="85">
+                                <select class="form-select mb-2" id="methodB"><option value="rk4">Runge-Kutta 4 (Preciso)</option><option value="heun">Heun (Equilibrado)</option><option value="euler">Euler (Rápido)</option></select>
+                                <button class="btn btn-danger w-100" id="btnCalcB">Simular Vaciado</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div id="resultB" class="card shadow-sm mb-3"><div class="card-body"><p class="text-muted">Esperando simulación...</p></div></div>
+                        <canvas id="chartB" class="mb-3"></canvas>
+                        <div class="card border-warning mb-3"><div class="card-header bg-warning text-dark fw-bold">🔍 Preguntas Dinámicas</div><div class="card-body small" id="dynQB"></div></div>
+                        <div class="card border-danger mb-3"><div class="card-header bg-danger text-white fw-bold">❓ Preguntas Fijas</div><div class="card-body small" id="staticQB"></div></div>
+                        <div class="alert alert-dark mt-2" id="conclB"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- C: PRECIOS -->
+        <section id="escenario-c" class="view">
+            <div class="container py-4">
+                <h2 class="mb-2 border-bottom pb-2">C. Desabastecimiento y Curva Continua de Precios</h2>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card shadow-sm mb-3"><div class="card-header bg-success text-white">⚙️ Configuración</div>
+                            <div class="card-body">
+                                <label class="form-label small">Producto a analizar:</label>
+                                <div class="form-check"><input class="form-check-input" type="checkbox" id="chkPapa" checked><label class="form-check-label">Papa</label></div>
+                                <div class="form-check"><input class="form-check-input" type="checkbox" id="chkPollo" checked><label class="form-check-label">Pollo</label></div>
+                                <div class="form-check"><input class="form-check-input" type="checkbox" id="chkHuevo"><label class="form-check-label">Huevo</label></div>
+                                <div class="form-check"><input class="form-check-input" type="checkbox" id="chkCarne"><label class="form-check-label">Carne</label></div>
+                                <div class="mb-2"><input type="number" id="c_dia" class="form-control" placeholder="Día a estimar" value="12"></div>
+                                <button class="btn btn-success w-100" id="btnCalcC">Interpolar Precios</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div id="resultC" class="card shadow-sm mb-3"><div class="card-body"><p class="text-muted">Esperando cálculo...</p></div></div>
+                        <canvas id="chartC" class="mb-3"></canvas>
+                        <div class="card border-warning mb-3"><div class="card-header bg-warning text-dark fw-bold">🔍 Preguntas Dinámicas</div><div class="card-body small" id="dynQC"></div></div>
+                        <div class="card border-success mb-3"><div class="card-header bg-success text-white fw-bold">❓ Preguntas Fijas</div><div class="card-body small" id="staticQC"></div></div>
+                        <div class="alert alert-success mt-2" id="conclC"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- D: COSTO FAMILIAR -->
+        <section id="escenario-d" class="view">
+            <div class="container py-4">
+                <h2 class="mb-2 border-bottom pb-2">D. Costo Acumulado y Pérdida del Poder Adquisitivo</h2>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card shadow-sm mb-3"><div class="card-header bg-warning text-dark">⚙️ Parámetros</div>
+                            <div class="card-body">
+                                <input type="number" id="d_fam" class="form-control mb-2" placeholder="Miembros del Hogar" value="4" min="1" max="10">
+                                <input type="number" id="d_ingreso" class="form-control mb-2" placeholder="Ingreso Mensual Familiar (Bs)" value="3000">
+                                <div class="form-check form-switch mb-2"><input class="form-check-input" type="checkbox" id="chkDieta"><label class="form-check-label">Activar "Dieta de Emergencia" (sin carne/pollo)</label></div>
+                                <select class="form-select mb-2" id="methodD"><option value="simpson13">Simpson 1/3</option><option value="simpson38">Simpson 3/8</option><option value="trapecio">Trapecio</option></select>
+                                <button class="btn btn-warning w-100 text-dark fw-bold" id="btnCalcD">Calcular Gasto Mensual</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div id="resultD" class="card shadow-sm mb-3"><div class="card-body"><p class="text-muted">Esperando cálculo...</p></div></div>
+                        <canvas id="chartD" class="mb-3"></canvas>
+                        <div class="card border-warning mb-3"><div class="card-header bg-warning text-dark fw-bold">🔍 Preguntas Dinámicas</div><div class="card-body small" id="dynQD"></div></div>
+                        <div class="card border-info mb-3"><div class="card-header bg-info text-white fw-bold">❓ Preguntas Fijas</div><div class="card-body small" id="staticQD"></div></div>
+                        <div class="alert alert-info mt-2" id="conclD"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- E: UMBRALES -->
+        <section id="escenario-e" class="view">
+            <div class="container py-4">
+                <h2 class="mb-2 border-bottom pb-2">E. Umbrales Críticos de Abastecimiento</h2>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card shadow-sm mb-3"><div class="card-header bg-info text-white">⚙️ Cálculo</div>
+                            <div class="card-body">
+                                <select class="form-select mb-2" id="e_alert"><option value="1">Alerta 1: Colapso bolsillo familiar</option><option value="2">Alerta 2: Equilibrio surtidores</option><option value="3">Alerta 3: Estallido social</option></select>
+                                <input type="number" id="e_x0" class="form-control mb-2" placeholder="Día inicial estimación" value="10">
+                                <button class="btn btn-info w-100 text-white" id="btnCalcE">Encontrar Punto Crítico</button>
+                            </div>
+                        </div>
+                        <div class="card border-dark mb-2"><div class="card-header bg-dark text-white">📊 Estado de Alertas</div><div class="card-body p-2">
+                            <div class="progress mb-1"><div class="progress-bar bg-danger" id="bar1" style="width:0%">Bolsillo</div></div>
+                            <div class="progress mb-1"><div class="progress-bar bg-warning" id="bar2" style="width:0%">Surtidores</div></div>
+                            <div class="progress"><div class="progress-bar bg-secondary" id="bar3" style="width:0%">Social</div></div>
+                        </div></div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div id="resultE" class="card shadow-sm mb-3"><div class="card-body"><p class="text-muted">Esperando cálculo...</p></div></div>
+                        <canvas id="chartE" class="mb-3"></canvas>
+                        <div class="card border-warning mb-3"><div class="card-header bg-warning text-dark fw-bold">🔍 Respuestas a las Alertas</div><div class="card-body small" id="dynQE"></div></div>
+                        <div class="alert alert-dark mt-2" id="conclE"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- F: RUMORES -->
+        <section id="escenario-f" class="view">
+            <div class="container py-4">
+                <h2 class="mb-2 border-bottom pb-2">F. Rumores de Desabastecimiento y Pánico en la Red</h2>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card shadow-sm mb-3"><div class="card-header bg-secondary text-white">⚙️ Multiplicadores</div>
+                            <div class="card-body">
+                                <p class="small mb-1">Intensidad del Rumor</p>
+                                <div class="btn-group w-100 mb-2"><button class="btn btn-outline-secondary active btn-rumor" data-val="1">Bajo</button><button class="btn btn-outline-secondary btn-rumor" data-val="5">Medio</button><button class="btn btn-outline-secondary btn-rumor" data-val="15">Alto</button></div>
+                                <p class="small mb-1">Nivel de Pánico</p>
+                                <div class="btn-group w-100 mb-2"><button class="btn btn-outline-danger active btn-panic" data-val="5">Compra</button><button class="btn btn-outline-danger btn-panic" data-val="10">Reducción Stock</button><button class="btn btn-outline-danger btn-panic" data-val="20">Aumento Demanda</button></div>
+                                <div class="d-grid gap-2 mb-2">
+                                    <button class="btn btn-outline-dark btn-social" data-val="5">📲 Audio WhatsApp (+5%)</button>
+                                    <button class="btn btn-outline-dark btn-social" data-val="15">🎵 TikTok en vivo (+15%)</button>
+                                    <button class="btn btn-outline-success btn-social" data-val="-3">📢 Comunicado Oficial (-3%)</button>
+                                </div>
+                                <div class="form-text mb-3">
+                                    📲 <strong>Audio WhatsApp:</strong> Cadenas virales que aumentan moderadamente el pánico.<br>
+                                    🎵 <strong>TikTok en vivo:</strong> Videos masivos mostrando filas, perturbación severa.<br>
+                                    📢 <strong>Comunicado Oficial:</strong> Intento institucional de calmar, efecto limitado.
+                                </div>
+                                <button class="btn btn-dark w-100" id="btnCalcF">Analizar Impacto</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div id="resultF" class="card shadow-sm mb-3"><div class="card-body"><p class="text-muted">Esperando análisis...</p></div></div>
+                        <canvas id="chartF" class="mb-3"></canvas>
+                        <div class="card border-warning mb-3"><div class="card-header bg-warning text-dark fw-bold">🔍 Preguntas Dinámicas</div><div class="card-body small" id="dynQF"></div></div>
+                        <div class="card border-secondary mb-3"><div class="card-header bg-secondary text-white fw-bold">❓ Preguntas Fijas</div><div class="card-body small" id="staticQF"></div></div>
+                        <div class="alert alert-dark mt-2" id="conclF"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- G: DINÁMICA SOCIAL -->
+        <section id="escenario-g" class="view">
+            <div class="container py-4">
+                <h2 class="mb-2 border-bottom pb-2">G. Modelo de Difusión de Opinión o Descontento Social</h2>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card shadow-sm mb-3"><div class="card-header bg-danger text-white">⚙️ Termómetro Plaza Murillo</div>
+                            <div class="card-body">
+                                <label class="form-label small">Tasa de contagio $a$ (Efecto TikTok)</label>
+                                <input type="range" class="form-range" id="sliderA" min="0.001" max="0.01" step="0.001" value="0.003">
+                                <label class="form-label small">Efectividad diálogo $c$ (Mediadores)</label>
+                                <input type="range" class="form-range" id="sliderC" min="0.001" max="0.005" step="0.001" value="0.003">
+                                <label class="form-label small">Desgaste mediador $r$ (Cansancio)</label>
+                                <input type="range" class="form-range" id="sliderR" min="0.001" max="0.005" step="0.001" value="0.001">
+                                <div class="d-flex justify-content-between mt-2 small"><span>Neutrales: <b id="valN">900</b></span><span>Manifestantes: <b id="valM">100</b></span><span>Mediadores: <b id="valD">20</b></span></div>
+                                <button class="btn btn-danger w-100 mt-2" id="btnCalcG">Simular 30 Días</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div id="resultG" class="card shadow-sm mb-3"><div class="card-body"><p class="text-muted">Esperando simulación...</p></div></div>
+                        <canvas id="chartG" class="mb-3"></canvas>
+                        <div class="card border-warning mb-3"><div class="card-header bg-warning text-dark fw-bold">🔍 Preguntas Dinámicas</div><div class="card-body small" id="dynQG"></div></div>
+                        <div class="card border-dark mb-3"><div class="card-header bg-dark text-white fw-bold">❓ Preguntas Fijas</div><div class="card-body small" id="staticQG"></div></div>
+                        <div class="alert alert-dark mt-2" id="conclG"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONCLUSIONES -->
+        <section id="conclusiones" class="view">
+            <div class="container py-5">
+                <h2 class="mb-4 border-bottom pb-2">Conclusiones Finales del Proyecto</h2>
+                <p>Tras conectar y resolver los diferentes escenarios de este simulador, el análisis matemático nos permite llegar a una conclusión fundamental: La crisis en La Paz no es un evento aislado, sino un fenómeno sistémico donde la infraestructura, la economía familiar y la psicología social están encadenadas en un efecto dominó.</p>
+                <p>Del análisis académico de los datos, destacamos tres conclusiones clave:</p>
+                <ol class="list-group list-group-numbered mb-4">
+                    <li class="list-group-item"><strong>El "Mal Condicionamiento" de nuestra Geografía:</strong> El simulador demuestra que la red de transporte y abastecimiento de La Paz (Escenario A y F) padece de un problema estructural crónico: está matemáticamente mal condicionada. Debido a la topografía de la hoyada, la alta centralización del almacenamiento en la planta de Senkata y la escasez de vías alternas de alta capacidad, la ciudad no tiene capacidad de amortiguación. Esto explica por qué una variación mínima del 5% en la demanda (provocada por el pánico digital en WhatsApp o TikTok) causa un colapso del 200% en las filas de los surtidores. La red paceña es hiper-sensible a las perturbaciones.</li>
+                    <li class="list-group-item"><strong>El Impuesto Invisible de la Escasez Continua:</strong> Al cruzar los datos dispersos de los mercados mediante curvas de interpolación (Escenario C) e integrarlos para calcular el gasto mensual acumulado (Escenario D), la matemática desnuda el impacto humano de la inflación. El desabastecimiento actúa como un castigo severo para las familias numerosas de las laderas. El método de Simpson demuestra con precisión que el sobreprecio del pollo, la carne, el huevo y la papa empuja a los hogares a un quiebre técnico (raíz crítica en el Escenario E) antes de fin de mes, obligándolos a devaluarse económicamente o a sacrificar su seguridad alimentaria.</li>
+                    <li class="list-group-item"><strong>La Velocidad del Diálogo como Factor de Estabilidad:</strong> Finalmente, el modelo de dinámica social (Escenario G) resuelto por algoritmos de alta precisión (RK4) nos deja una lección científica sobre la convivencia: el descontento social se propaga con la misma velocidad y comportamiento que una epidemia. La masificación de las protestas en las calles no se calma con el paso del tiempo; se frena acelerando la tasa de resolución logística y el diálogo transparente. Si el suministro cae y la mediación es lenta, el sistema social diverge hacia la inestabilidad permanente.</li>
+                </ol>
+                <div class="alert alert-primary text-center">
+                    <strong>💡 Reflexión Final</strong><br>
+                    La resolución numérica de este desafío demuestra que para resolver las crisis de La Paz no basta con administrar la escasez; se debe rediseñar la resiliencia de la ciudad. Necesitamos descentralizar el almacenamiento de carburantes, diversificar las rutas de conexión regional, proteger el bolsillo familiar de la especulación y entender que, en la era digital, contener un rumor en redes sociales es tan vital para el abastecimiento como habilitar una carretera bloqueada. La matemática no miente: la estabilidad de nuestra ciudad depende de nuestra capacidad de anticipación.
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
